@@ -37,6 +37,11 @@ public class TaskController {
         return new TaskDto(1L, "test title", "test_content");
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "getTaskById")
+    public TaskDto getTaskById (Long taskId){
+        return taskMapper.mapToTaskDto(service.getTaskById(taskId));
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
     public void deleteTask(Long taskId) {
     }
@@ -47,8 +52,4 @@ public class TaskController {
         return new TaskDto(1L, "Edit test title", "test_content");
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createTask", consumes = APPLICATION_JSON_VALUE)
-    public void createTask(@RequestBody TaskDto taskDto){
-        service.saveTask(taskMapper.mapToTask(taskDto));
-    }
 }

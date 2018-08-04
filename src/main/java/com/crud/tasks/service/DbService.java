@@ -1,12 +1,10 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Task;
-import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import java.util.List;
 
@@ -22,12 +20,8 @@ public class DbService {
         return repository.findAll();
     }
 
-
     public Task getTaskById(Long id){
-        return repository.findOne(id);
+        return repository.findById(id);
     }
 
-    public Task saveTask(final Task task){
-        return repository.save(task);
-    }
 }

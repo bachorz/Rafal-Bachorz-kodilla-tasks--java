@@ -30,18 +30,18 @@ public class TrelloClient {
     private String trelloUsername;
 
 
-        private URI getUrl (){
-        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/rbachorz/boards")
+    private URI getTrelloBoardsUrl (){
+        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/trelloUsername/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
                 .queryParam("fields", "name,id")
                 .queryParam("lists", "all").build().encode().toUri();
     }
 
-        public List<TrelloBoardDto> getTrelloBoards() {
-            TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getUrl(), TrelloBoardDto[].class);
-            return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
-        }
+    public List<TrelloBoardDto> getTrelloBoards() {
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getTrelloBoardsUrl(), TrelloBoardDto[].class);
+        return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
+    }
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
 

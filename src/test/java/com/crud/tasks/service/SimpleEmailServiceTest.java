@@ -38,7 +38,7 @@ public class SimpleEmailServiceTest {
     @Test
     public void emptyFiledSendEmail() {
         // Given
-        Mail mail = new Mail("test@test.com", "Test - empty field", "Test message at an empty field","");
+        Mail mail = new Mail("test@test.com", "Test - empty field", "Test message at an empty field",null);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
@@ -47,6 +47,6 @@ public class SimpleEmailServiceTest {
         // When
         simpleEmailService.send(mail);
         // Then
-        verify(javaMailSender, times(1)).send(mailMessage);
+        verify(javaMailSender, times(0)).send(mailMessage);
 }
 }

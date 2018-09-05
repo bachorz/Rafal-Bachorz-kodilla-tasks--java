@@ -43,10 +43,10 @@ public class SimpleEmailServiceTest {
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMassage());
-        mailMessage.setCc(mail.getToCC());
+       // mailMessage.setCc(mail.getToCC());
         // When
         simpleEmailService.send(mail);
         // Then
-        verify(javaMailSender, times(0)).send(mailMessage);
+        verify(javaMailSender, times(1)).send(mailMessage);
 }
 }

@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TrelloMapperTest {
@@ -15,77 +16,77 @@ public class TrelloMapperTest {
     public void mapToBardsTest (){
 
         //Given
-        List<TrelloListDto> list = new ArrayList<>();
-        list.add(new TrelloListDto("List1", "1", true));
-        list.add(new TrelloListDto("List2", "2", false));
+        List<TrelloListDto> list = Arrays.asList(new TrelloListDto("1", "List1", true),
+                new TrelloListDto("2", "List2", false));
+        List<TrelloBoardDto> boardDtoList = Arrays.asList(new TrelloBoardDto("A 01", "Board A", list));
 
-        List<TrelloBoardDto> boardDtoList = new ArrayList<>();
-        boardDtoList.add(new TrelloBoardDto("Board A", "A 01", list));
+        List<TrelloList> listToCompare = Arrays.asList(new TrelloList("1", "List1", true),
+                new TrelloList("2", "List2", false));
+        List<TrelloBoard> listComparative = Arrays.asList(new TrelloBoard("A 01", "Board A", listToCompare));
 
         //When
         List<TrelloBoard> listResult  = trelloMaper.mapToBards(boardDtoList);
 
         //Then
-        Assert.assertEquals(1, listResult.size());
-        Assert.assertEquals(2,listResult.get(0).getLists().size());
-        Assert.assertEquals("Board A", listResult.get(0).getName());
+        Assert.assertEquals(listComparative, listResult);
     }
 
     @Test
     public void mapToBoardsDtoTest () {
 
         //Give
-        List<TrelloList> list = new ArrayList<>();
-        List<TrelloList> list2 = new ArrayList<>();
-        list.add(new TrelloList("1", "List1", true));
-        list.add(new TrelloList("2", "List2", false));
-        list2.add(new TrelloList("3", "List3", true));
-        list2.add(new TrelloList("1", "List1", true));
+        List<TrelloList> list = Arrays.asList(new TrelloList("1", "List1", true),
+                new TrelloList("2", "List2", false));
+        List<TrelloList> list2 = Arrays.asList(new TrelloList("3", "List3", true),
+                new TrelloList("1", "List1", true));
+        List<TrelloBoard> boardList = Arrays.asList(new TrelloBoard("A 01", "Board A", list),
+                new TrelloBoard("B 01", "Board B", list2));
 
-        List<TrelloBoard> boardList = new ArrayList<>();
-        boardList.add(new TrelloBoard("Board A", "A 01", list));
-        boardList.add(new TrelloBoard("Board B", "B 01", list2));
+
+        List<TrelloListDto> listToCompareA = Arrays.asList(new TrelloListDto("1", "List1", true),
+                new TrelloListDto("2", "List2", false));
+        List<TrelloListDto> listToCompareB = Arrays.asList(new TrelloListDto("3", "List3", true),
+                new TrelloListDto("1", "List1", true));
+        List<TrelloBoardDto> listComparative = Arrays.asList(new TrelloBoardDto("A 01", "Board A", listToCompareA),
+                new TrelloBoardDto("B 01", "Board B", listToCompareB));
 
         //When
         List<TrelloBoardDto> listResult = trelloMaper.mapToBoardsDto(boardList);
 
         //Then
-        Assert.assertEquals(2,listResult.size());
-        Assert.assertEquals("List3", listResult.get(1).getLists().get(0).getName());
+        Assert.assertEquals(listComparative,listResult);
     }
-
     @Test
     public void mapToListTest (){
 
         //Given
-        List<TrelloListDto> list = new ArrayList<>();
-        list.add(new TrelloListDto("1", "List1", true));
-        list.add(new TrelloListDto("2", "List2", false));
-        list.add(new TrelloListDto("3", "List3", true));
+        List<TrelloListDto> list = Arrays.asList(new TrelloListDto("1", "List1", true),
+                new TrelloListDto("2", "List2", false),new TrelloListDto("3", "List3", true));
+        List<TrelloList> listComparative = Arrays.asList(new TrelloList("1", "List1", true),
+                new TrelloList("2", "List2", false), new TrelloList("3", "List3", true));
 
         //When
         List<TrelloList> listResult = trelloMaper.mapToList(list);
 
         //Then
-        Assert.assertEquals(3, listResult.size());
-        Assert.assertEquals(false, listResult.get(1).isClosed());
+        Assert.assertEquals(listComparative, listResult);
     }
 
     @Test
     public void mapToListDtoTest (){
 
         //Given
-        List<TrelloList> list = new ArrayList<>();
-        list.add(new TrelloList("1", "List1", true));
-        list.add(new TrelloList("2", "List2", false));
-        list.add(new TrelloList("3", "List3", true));
+        List<TrelloList> list = Arrays.asList(new TrelloList("1", "List1", true),
+                new TrelloList("2", "List2", false), new TrelloList("3", "List3", true));
+        List<TrelloListDto> listComparative = Arrays.asList(new TrelloListDto("1", "List1", true),
+                new TrelloListDto("2", "List2", false), new TrelloListDto("3", "List3", true));
 
         //When
         List<TrelloListDto> listResult = trelloMaper.mapToListDto(list);
 
         //Then
-        Assert.assertEquals(3,listResult.size());
-        Assert.assertEquals("2", listResult.get(1).getId());
+        Assert.assertEquals(listComparative,listResult);
+
     }
 
     @Test
@@ -94,11 +95,13 @@ public class TrelloMapperTest {
         //Given
         TrelloCard trelloCard = new TrelloCard("Card A", "Example description", "last", "3");
 
+        TrelloCardDto compareTrelloCardDto = new TrelloCardDto("Card A", "Example description", "last", "3");
+
         //When
         TrelloCardDto resultTrelloCard = trelloMaper.mapToCardDto(trelloCard);
 
         //Then
-        Assert.assertEquals("Example description", resultTrelloCard.getDescription());
+        Assert.assertEquals(compareTrelloCardDto, resultTrelloCard);
     }
 
     @Test
@@ -107,10 +110,11 @@ public class TrelloMapperTest {
         //Given
         TrelloCardDto trelloCardDto = new TrelloCardDto("Card A", "Example description", "top", "3");
 
+        TrelloCard compareTrelloCard = new TrelloCard("Card A", "Example description", "top", "3");
         //When
         TrelloCard resultTrelloCard = trelloMaper.mapToCard(trelloCardDto);
 
         //Then
-        Assert.assertEquals("Card A", resultTrelloCard.getName());
+        Assert.assertEquals(compareTrelloCard, resultTrelloCard);
     }
 }

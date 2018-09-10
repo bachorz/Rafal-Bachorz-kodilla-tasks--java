@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
@@ -21,4 +23,18 @@ public class TrelloListDto {
 
     @JsonProperty("closed")
     private boolean isClosed;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrelloListDto)) return false;
+        TrelloListDto that = (TrelloListDto) o;
+        return isClosed() == that.isClosed() && Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getName(), isClosed());
+    }
 }

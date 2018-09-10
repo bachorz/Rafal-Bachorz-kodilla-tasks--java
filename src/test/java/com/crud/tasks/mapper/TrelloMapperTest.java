@@ -4,7 +4,6 @@ import com.crud.tasks.domain.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class TrelloMapperTest {
     TrelloMaper trelloMaper = new TrelloMaper();
 
     @Test
-    public void mapToBardsTest (){
+    public void mapToBoardsTest (){
 
         //Given
         List<TrelloListDto> list = Arrays.asList(new TrelloListDto("1", "List1", true),
@@ -25,7 +24,7 @@ public class TrelloMapperTest {
         List<TrelloBoard> listComparative = Arrays.asList(new TrelloBoard("A 01", "Board A", listToCompare));
 
         //When
-        List<TrelloBoard> listResult  = trelloMaper.mapToBards(boardDtoList);
+        List<TrelloBoard> listResult  = trelloMaper.mapToBoards(boardDtoList);
 
         //Then
         Assert.assertEquals(listComparative, listResult);

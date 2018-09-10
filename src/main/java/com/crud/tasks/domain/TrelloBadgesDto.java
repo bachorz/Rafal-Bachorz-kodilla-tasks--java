@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @AllArgsConstructor
 @Getter
-@NoArgsConstructor
+//@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrelloBadgesDto {
 
@@ -18,6 +20,4 @@ public class TrelloBadgesDto {
 
     @JsonProperty("attachments")
     private TrelloAttachmentsDto attachments;
-
-
 }

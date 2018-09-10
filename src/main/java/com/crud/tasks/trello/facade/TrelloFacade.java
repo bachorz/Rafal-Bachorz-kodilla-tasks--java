@@ -10,14 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @Component
 public class TrelloFacade {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TrelloFacade.class);
 
     @Autowired
     private TrelloService trelloService;
@@ -29,7 +24,7 @@ public class TrelloFacade {
     private TrelloValidator trelloValidator;
 
     public List<TrelloBoardDto> fetchTrelloBoards() {
-        List<TrelloBoard> trelloBoards = trelloMaper.mapToBards(trelloService.fetchTrelloBoards());
+        List<TrelloBoard> trelloBoards = trelloMaper.mapToBoards(trelloService.fetchTrelloBoards());
         List<TrelloBoard> filteredBoards = trelloValidator.validateTrelloBoards(trelloBoards);
         return trelloMaper.mapToBoardsDto(filteredBoards);
     }

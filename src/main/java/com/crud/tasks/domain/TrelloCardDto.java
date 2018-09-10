@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
-@NoArgsConstructor
+//@NoArgsConstructor
 public class TrelloCardDto {
     private String name;
     private String description;

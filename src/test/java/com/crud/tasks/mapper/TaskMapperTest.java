@@ -24,9 +24,7 @@ public class TaskMapperTest {
         Task taskResult = taskMapper.mapToTask(taskDto);
 
         //Then
-        //Assert.assertEquals(2L, taskResult.);
-        Assert.assertEquals("Test", taskResult.getTitle());
-        Assert.assertEquals("content A", taskResult.getContent());
+        Assert.assertEquals(taskToCompare, taskResult);
     }
 
     @Test
@@ -41,8 +39,7 @@ public class TaskMapperTest {
         TaskDto taskResult = taskMapper.mapToTaskDto(task);
 
         //Then
-        Assert.assertEquals("Test", taskResult.getTitle());
-        Assert.assertEquals("content A", taskResult.getContent());
+        Assert.assertEquals(taskDtoToCompare, taskResult);
     }
 
     @Test
@@ -59,10 +56,6 @@ public class TaskMapperTest {
         List<TaskDto> listResult = taskMapper.mapToTaskDtoList(taskList);
 
         //Then
-        Assert.assertEquals(2, listResult.size());
-        Assert.assertEquals("Test 2", listResult.get(0).getTitle());
-        Assert.assertEquals("description B", listResult.get(1).getContent());
-
-
+        Assert.assertEquals(listToCompare, listResult);
     }
 }

@@ -28,13 +28,6 @@ public class DbServiceTest {
     @Mock
     private TaskRepository repository;
 
-    @Before
-    public void baseToTests () {
-        List<Task> taskList = Arrays.asList(new Task(1L,"test", "description A"),
-                new Task(2L, "test", "description B"));
-        when(repository.findAll()).thenReturn(taskList);
-    }
-
     @Test
     public void getAllTasksTest () {
 
@@ -54,11 +47,8 @@ public class DbServiceTest {
     public void getTaskTest () {
 
         //Given
-        List<Task> taskList = Arrays.asList(new Task(1L,"test", "description A"),
-                new Task(2L, "test", "description B"));
-        when(repository.findAll()).thenReturn(taskList);
-        List<Task> listResult = dbService.getAllTasks();
-        when(repository.findById(listResult.get(0).getId())).thenReturn(Optional.of(listResult.get(0)));
+        Task task = new Task(1L,"test", "description A");
+        when(repository.findById(task.getId())).thenReturn(Optional.of(task));
         //When
         Optional<Task> taskresult = dbService.getTask(1L);
 

@@ -2,17 +2,18 @@ package com.crud.tasks.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 
 @Getter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Entity(name = "tasks")
 @Service
 public class Task {

@@ -1,11 +1,11 @@
 package com.crud.tasks.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.Objects;
-
 @Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class TrelloCard {
 
@@ -14,17 +14,4 @@ public class TrelloCard {
     private String pos;
     private String listId;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TrelloCard)) return false;
-        TrelloCard that = (TrelloCard) o;
-        return Objects.equals(getName(), that.getName()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getPos(), that.getPos()) && Objects.equals(getListId(), that.getListId());
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(getName(), getDescription(), getPos(), getListId());
-    }
 }

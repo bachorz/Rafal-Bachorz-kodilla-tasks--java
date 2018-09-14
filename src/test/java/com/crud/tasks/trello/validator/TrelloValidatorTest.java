@@ -37,12 +37,9 @@ public class TrelloValidatorTest {
     public void validateCardTest () {
 
         //Given
-        TrelloCard trelloCard = new TrelloCard("Card A", "Example description", "last", "3");
+        TrelloCard trelloCard = new TrelloCard("Task","Task on today", "top","A-113");
 
-        //When
+        //When & Then
         trelloValidator.validateCard(trelloCard);
-
-        //Then
-        Assert.assertTrue("Seems that my application is used in proper way.", true);
     }
 }

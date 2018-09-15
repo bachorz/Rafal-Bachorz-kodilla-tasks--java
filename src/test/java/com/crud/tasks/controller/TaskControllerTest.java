@@ -92,14 +92,11 @@ public class TaskControllerTest {
     public void deleteTaskTest () throws Exception {
 
         //Give
-        TaskDto taskDtoTest = new TaskDto(1L,"Test task 1", "description A");
-
-        when(taskMapper.mapToTaskDto(any())).thenReturn(taskDtoTest);
-
+        long id = 1;
         //When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask?taskId=1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/v1/task/deleteTask?taskId=" + id).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(service, times(1)).deleteTask(taskDtoTest.getId());
+        verify(service, times(1)).deleteTask(id);
     }
 
     @Test
@@ -109,9 +106,9 @@ public class TaskControllerTest {
         TaskDto taskDtoTest = new TaskDto(1L,"Test task 1", "description B");
         Task task = new Task(1L,"Test task 2", "description B");
 
-        when(taskMapper.mapToTask(any())).thenReturn(task);
-        when(service.saveTask(any())).thenReturn(new Task());
-        when(taskMapper.mapToTaskDto(any())).thenReturn(taskDtoTest);
+        when(taskMapper.mapToTask(taskDtoTest)).thenReturn(task);
+        when(service.saveTask(task)).thenReturn(new Task());
+        when(taskMapper.mapToTaskDto(new Task())).thenReturn(taskDtoTest);
 
         String jsonContent = gson.toJson(taskDtoTest);
 
@@ -129,6 +126,10 @@ public class TaskControllerTest {
 
         //Given
         TaskDto taskDto = new TaskDto(1l, "Task", "Test task");
+        Task task = new Task(1L,"Test task 2", "description B");
+
+        when(taskMapper.mapToTask(taskDto)).thenReturn(task);
+        when(service.saveTask(task)).thenReturn(new Task());
 
         String jsonContent = gson.toJson(taskDto);
 
@@ -138,6 +139,6 @@ public class TaskControllerTest {
                 .content(jsonContent))
                 .andExpect(status().isOk());
 
-        verify(service, times(1)).saveTask(taskMapper.mapToTask(taskDto));
+        verify(service, times(1)).saveTask(task);
     }
 }

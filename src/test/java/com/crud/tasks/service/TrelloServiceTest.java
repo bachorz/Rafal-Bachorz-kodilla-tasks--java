@@ -5,6 +5,7 @@ import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.client.TrelloClient;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -40,12 +41,13 @@ public class TrelloServiceTest {
         TrelloCardDto trelloCardDto= new TrelloCardDto("Card A", "Example description", "last", "3");
 
         when(adminConfig.getAdminMail()).thenReturn("jakisuzytkownik666@gmail.com");
-        when(trelloClient.createNewCard(any())).thenReturn(new CreatedTrelloCardDto());
+        when(trelloClient.createNewCard(trelloCardDto)).thenReturn(new CreatedTrelloCardDto());
+        Mail mailToCompare = new Mail("jakisuzytkownik666@gmail.com", "Tasks: New Trello card", "New card: Card A has been created on your Trello account", "");
 
         //When
         trelloService.createTrelloCard(trelloCardDto);
 
         //Them
-        verify(emailService, times(1)).send(any(Mail.class));
+        verify(emailService, times(1)).send(mailToCompare);
     }
 }

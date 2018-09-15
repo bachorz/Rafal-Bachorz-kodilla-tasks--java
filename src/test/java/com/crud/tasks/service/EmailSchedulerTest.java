@@ -4,6 +4,7 @@ import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.scheduler.EmailScheduler;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -49,13 +50,14 @@ public class EmailSchedulerTest {
 
         //Given
         when(adminConfig.getAdminMail()).thenReturn("jakisuzytkownik666@gmail.com");
+        when(taskRepository.count()).thenReturn(2L);
+
+        Mail mailToCompare = new Mail("jakisuzytkownik666@gmail.com", "Tasks: Once a day email", "Currently in database you got: 2 tasks", "");
 
         //When
-        emailScheduler.sendInformationEmail();
-        emailScheduler.sendInformationEmail();
+       emailScheduler.sendInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(2)).send(any(Mail.class));
+        verify(simpleEmailService, times(1)).send(mailToCompare);
     }
-
 }

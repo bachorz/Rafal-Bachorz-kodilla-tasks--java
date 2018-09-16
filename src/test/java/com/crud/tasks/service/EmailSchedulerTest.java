@@ -37,12 +37,16 @@ public class EmailSchedulerTest {
 
         //Given
         when(adminConfig.getAdminMail()).thenReturn("jakisuzytkownik666@gmail.com");
+        when(taskRepository.count()).thenReturn(1L);
+
+        Mail mailToCompare = new Mail("jakisuzytkownik666@gmail.com", "Tasks: Once a day email",
+                "Currently in database you got: 1 task", "");
 
         //When
         emailScheduler.sendInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(1)).send(any(Mail.class));
+        verify(simpleEmailService, times(1)).send(mailToCompare);
     }
 
     @Test
@@ -52,7 +56,8 @@ public class EmailSchedulerTest {
         when(adminConfig.getAdminMail()).thenReturn("jakisuzytkownik666@gmail.com");
         when(taskRepository.count()).thenReturn(2L);
 
-        Mail mailToCompare = new Mail("jakisuzytkownik666@gmail.com", "Tasks: Once a day email", "Currently in database you got: 2 tasks", "");
+        Mail mailToCompare = new Mail("jakisuzytkownik666@gmail.com", "Tasks: Once a day email",
+                "Currently in database you got: 2 tasks", "");
 
         //When
        emailScheduler.sendInformationEmail();

@@ -13,6 +13,6 @@ public class Mail {
 
     private String mailTo;
     private String subject;
-    private String massage;
+    private String message;
     private String toCC;
 }

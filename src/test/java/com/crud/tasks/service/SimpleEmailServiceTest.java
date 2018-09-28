@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -27,7 +26,7 @@ public class SimpleEmailServiceTest {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMassage());
+        mailMessage.setText(mail.getMessage());
         mailMessage.setCc(mail.getToCC());
         // When
         simpleEmailService.send(mail);
@@ -42,7 +41,7 @@ public class SimpleEmailServiceTest {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMassage());
+        mailMessage.setText(mail.getMessage());
        // mailMessage.setCc(mail.getToCC());
         // When
         simpleEmailService.send(mail);

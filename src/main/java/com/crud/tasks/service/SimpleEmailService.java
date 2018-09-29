@@ -51,8 +51,7 @@ public class SimpleEmailService {
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
-
-        Optional.ofNullable(mail.getToCC()).ifPresent(toCc ->  mailMessage.setCc(toCc));
+        mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
 
         return mailMessage;
     }

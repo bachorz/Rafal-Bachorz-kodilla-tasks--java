@@ -19,6 +19,7 @@ public class SimpleEmailServiceTest {
     private SimpleEmailService simpleEmailService;
     @Mock
     private JavaMailSender javaMailSender;
+
     @Test
     public void shouldSendEmail() {
         // Given

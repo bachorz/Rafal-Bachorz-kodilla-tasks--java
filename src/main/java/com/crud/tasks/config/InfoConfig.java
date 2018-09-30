@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @EqualsAndHashCode
-public class CompanyConfig {
+public class InfoConfig {
 
     @Value("${info.company.name}")
     private String companyName;

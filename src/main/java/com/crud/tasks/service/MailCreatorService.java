@@ -1,7 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.config.AdminConfig;
-import com.crud.tasks.config.CompanyConfig;
+import com.crud.tasks.config.InfoConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class MailCreatorService {
     private AdminConfig adminConfig;
 
     @Autowired
-    private CompanyConfig companyConfig;
+    private InfoConfig infoConfig;
 
     public String buildTrelloCardEmail(String message) {
 
@@ -39,7 +39,7 @@ public class MailCreatorService {
         context.setVariable("admin_name", adminConfig.getAdminName());
         context.setVariable("preview", "A new card in trello");
         context.setVariable("goodbye_message", "see you later " + adminConfig.getAdminName());
-        context.setVariable("company_details", companyConfig.getCompanyName() + ", contact: " + companyConfig.getCompanyEmail() + ", phone: " + companyConfig.getCompanyPhone());
+        context.setVariable("company_details", infoConfig.getCompanyName() + ", contact: " + infoConfig.getCompanyEmail() + ", phone: " + infoConfig.getCompanyPhone());
         context.setVariable("show_button", false);
         context.setVariable("is_friend", false);
         context.setVariable("admin_confing", adminConfig);

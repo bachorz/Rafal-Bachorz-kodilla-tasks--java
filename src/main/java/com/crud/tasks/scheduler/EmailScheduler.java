@@ -3,10 +3,8 @@ package com.crud.tasks.scheduler;
 import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.repository.TaskRepository;
-import com.crud.tasks.service.SchedulerEmailService;
 import com.crud.tasks.service.SimpleEmailService;
-import javafx.scene.input.DataFormat;
-import lombok.Data;
+
 import lombok.EqualsAndHashCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,8 +32,6 @@ public class EmailScheduler {
     @Autowired
     private AdminConfig adminConfig;
 
-    @Autowired
-    private SchedulerEmailService schedulerEmailService;
 
     @Scheduled(fixedDelay = 30000)
     public void sendInformationEmail() {
@@ -56,7 +52,7 @@ public class EmailScheduler {
     @Scheduled(cron = "0 0 10 * * *")
     public void sendTaskInfoEmail() {
 
-        schedulerEmailService.sendScheduler(new Mail(
+        simpleEmailService.sendScheduler(new Mail(
                 adminConfig.getAdminMail(),
                 SUBJECT2,
                 "Today is day " + dateFormat.format(calendar.getTime())+ ". Currently in database you got: ",

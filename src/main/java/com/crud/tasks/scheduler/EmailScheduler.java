@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.crud.tasks.service.SimpleEmailService.MailType.TASK_INFO;
+import static com.crud.tasks.service.SimpleEmailService.MailType.TRELLO_CARD;
+
+
 @EqualsAndHashCode
 @Component
 public class EmailScheduler {
@@ -33,7 +37,8 @@ public class EmailScheduler {
     private AdminConfig adminConfig;
 
 
-    @Scheduled(cron = "0 0 10 * * *")
+
+    @Scheduled(cron = "0 0 11 * * *")
     public void sendInformationEmail() {
         long size = taskRepository.count();
         String word;
@@ -46,16 +51,17 @@ public class EmailScheduler {
                 adminConfig.getAdminMail(),
                 SUBJECT,
                 "Currently in database you got: " + size + word,
-                ""));
+                ""), TRELLO_CARD);
     }
 
-    @Scheduled(cron = "0 0 10 * * *")
+    //@Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(fixedDelay = 30000)
     public void sendTaskInfoEmail() {
 
-        simpleEmailService.sendScheduler(new Mail(
+        simpleEmailService.send(new Mail(
                 adminConfig.getAdminMail(),
                 SUBJECT2,
                 "Today is day " + dateFormat.format(calendar.getTime())+ ". Currently in database you got: ",
-                ""));
+                ""), TASK_INFO);
     }
 }

@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static com.crud.tasks.service.SimpleEmailService.MailType.TRELLO_CARD;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,6 +48,6 @@ public class TrelloServiceTest {
         trelloService.createTrelloCard(trelloCardDto);
 
         //Them
-        verify(emailService, times(1)).send(mailToCompare);
+        verify(emailService, times(1)).send(mailToCompare, TRELLO_CARD);
     }
 }

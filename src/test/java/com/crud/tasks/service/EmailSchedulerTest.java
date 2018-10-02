@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 
+import static com.crud.tasks.service.SimpleEmailService.MailType.TRELLO_CARD;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -46,7 +47,7 @@ public class EmailSchedulerTest {
         emailScheduler.sendInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(1)).send(mailToCompare);
+        verify(simpleEmailService, times(1)).send(mailToCompare, TRELLO_CARD);
     }
 
     @Test
@@ -63,6 +64,6 @@ public class EmailSchedulerTest {
        emailScheduler.sendInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(1)).send(mailToCompare);
+        verify(simpleEmailService, times(1)).send(mailToCompare, TRELLO_CARD);
     }
 }

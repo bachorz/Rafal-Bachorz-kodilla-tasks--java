@@ -22,6 +22,8 @@ public class SimpleEmailServiceTest {
     @Mock
     private JavaMailSender javaMailSender;
 
+    SimpleEmailService.MailType mailType;
+
     @Test
     public void shouldSendEmail() {
         // Given
@@ -32,7 +34,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setText(mail.getMessage());
         mailMessage.setCc(mail.getToCC());
         // When
-        simpleEmailService.send(mail);
+        simpleEmailService.send(mail, mailType);
         // Then
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
     }
@@ -47,7 +49,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setText(mail.getMessage());
        // mailMessage.setCc(mail.getToCC());
         // When
-        simpleEmailService.send(mail);
+        simpleEmailService.send(mail, mailType);
         // Then
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
 }

@@ -10,6 +10,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
+import static com.crud.tasks.domain.MailType.TASK_INFO;
+import static com.crud.tasks.domain.MailType.TRELLO_CARD;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -22,8 +24,6 @@ public class SimpleEmailServiceTest {
     @Mock
     private JavaMailSender javaMailSender;
 
-    SimpleEmailService.MailType mailType;
-
     @Test
     public void shouldSendEmail() {
         // Given
@@ -34,7 +34,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setText(mail.getMessage());
         mailMessage.setCc(mail.getToCC());
         // When
-        simpleEmailService.send(mail, mailType);
+        simpleEmailService.send(mail, TASK_INFO);
         // Then
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
     }
@@ -49,7 +49,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setText(mail.getMessage());
        // mailMessage.setCc(mail.getToCC());
         // When
-        simpleEmailService.send(mail, mailType);
+        simpleEmailService.send(mail, TRELLO_CARD);
         // Then
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
 }

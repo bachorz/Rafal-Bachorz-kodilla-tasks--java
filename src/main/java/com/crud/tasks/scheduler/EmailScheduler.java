@@ -13,9 +13,8 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static com.crud.tasks.service.SimpleEmailService.MailType.TASK_INFO;
-import static com.crud.tasks.service.SimpleEmailService.MailType.TRELLO_CARD;
-
+import static com.crud.tasks.domain.MailType.TASK_INFO;
+import static com.crud.tasks.domain.MailType.TRELLO_CARD;
 
 @EqualsAndHashCode
 @Component
@@ -54,8 +53,7 @@ public class EmailScheduler {
                 ""), TRELLO_CARD);
     }
 
-    //@Scheduled(cron = "0 0 10 * * *")
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(cron = "0 0 10 * * *")
     public void sendTaskInfoEmail() {
 
         simpleEmailService.send(new Mail(

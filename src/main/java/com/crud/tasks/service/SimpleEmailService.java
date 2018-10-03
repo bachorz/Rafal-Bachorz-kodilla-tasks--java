@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
+import com.crud.tasks.domain.MailType;
 import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import static com.crud.tasks.service.SimpleEmailService.MailType.TASK_INFO;
-import static com.crud.tasks.service.SimpleEmailService.MailType.TRELLO_CARD;
+import static com.crud.tasks.domain.MailType.TASK_INFO;
+import static com.crud.tasks.domain.MailType.TRELLO_CARD;
+
 
 @EqualsAndHashCode
 @Service
@@ -27,11 +29,6 @@ public class SimpleEmailService {
 
     @Autowired
     private MailCreatorService mailCreatorService;
-
-    public enum MailType {
-        TASK_INFO,
-        TRELLO_CARD
-    }
 
     public void send(final Mail mail, MailType mailType) {
         LOGGER.info("Starting email preparation...");
@@ -48,16 +45,22 @@ public class SimpleEmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            if (mailType == TASK_INFO) {
-                messageHelper.setText(mailCreatorService.buildTaskInfoEmail(mail.getMessage()), true);
-            }
-            if (mailType == TRELLO_CARD) {
-                messageHelper.setText(mailCreatorService.buildTaskInfoEmail(mail.getMessage()), true);
-
+            String message = getMessage(mail, mailType);
+            if (message != null) {
+                messageHelper.setText(message, true);
             }
         };
     }
 
+    private String getMessage(final Mail mail, MailType mailType) {
+        if (mailType == TASK_INFO) {
+            return mailCreatorService.buildTaskInfoEmail(mail.getMessage());
+        }
+        if (mailType == TRELLO_CARD) {
+            return mailCreatorService.buildTaskInfoEmail(mail.getMessage());
+        }
+        return null;
+    }
 }
 
 

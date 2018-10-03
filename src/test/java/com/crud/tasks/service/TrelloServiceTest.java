@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.crud.tasks.service.SimpleEmailService.MailType.TRELLO_CARD;
+import static com.crud.tasks.domain.MailType.TRELLO_CARD;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

@@ -4,16 +4,13 @@ import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.scheduler.EmailScheduler;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.mail.SimpleMailMessage;
 
-import static com.crud.tasks.service.SimpleEmailService.MailType.TRELLO_CARD;
-import static org.mockito.Matchers.any;
+import static com.crud.tasks.domain.MailType.TRELLO_CARD;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
